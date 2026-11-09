@@ -1,0 +1,92 @@
+
+function transform(input: InputObject): ResultObject {
+
+  const req = input.request;
+
+  const adapterSchema = {
+    Lookups: [],
+    Schema: {
+      SearchRequest: {
+        SearchCriteria: {
+          Fields: [
+            {
+              Name: "LegalEntityName",
+              FriendlyName: "Legal Entity Name",
+              Type: "text"
+            }
+          ]
+        }
+      },
+
+      SearchResponse: {
+        SearchResultsData: {
+          Fields: [
+            {
+              Name: "LegalEntityName",
+              FriendlyName: "Legal Entity Name",
+              Type: "text"
+            },
+            {
+              Name: "ExternalDataIdentifier",
+              FriendlyName: "External ID",
+              Type: "text"
+            }
+          ]
+        }
+      },
+
+      GetRequest: {
+        RequestData: {
+          Fields: [
+            {
+              Name: "ExternalDataIdentifier",
+              FriendlyName: "External ID",
+              Type: "text"
+            }
+          ]
+        }
+      },
+
+      GetResponse: {
+        ClientData: {
+          Fields: [
+            {
+              Name: "LegalEntityName",
+              FriendlyName: "Legal Entity Name",
+              Type: "text"
+            },
+            {
+              Name: "ExternalDataIdentifier",
+              FriendlyName: "External ID",
+              Type: "text"
+            }
+          ]
+        },
+
+        AssociatedEntitiesCompanyData: {
+          Fields: []
+        },
+        AssociatedEntitiesIndividualData: {
+          Fields: []
+        },
+        AssociationsData: {
+          Fields: []
+        }
+      }
+    }
+  };
+
+  return {
+    output: {
+      Id: req.Id,
+      Tenant: req.Tenant,
+      ProviderId: req.ProviderId,
+      type: "Test",
+      status: "Success",
+      errorDetails: null,
+      response: {
+        adapterSchema: adapterSchema
+      }
+    }
+  };
+}
